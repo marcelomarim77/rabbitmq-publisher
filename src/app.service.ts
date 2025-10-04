@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices'
 
 @Injectable()
@@ -17,7 +17,11 @@ export class AppService implements OnModuleInit {
                 },
             },
         });
-      }
+
+        this.client.status.subscribe((status) => {
+            Logger.log(`Status: ${status}`, this.constructor.name); // Loga o resultado
+        });
+    }
 
     async publishCreateCat(data: any) {
         const result = this.client.emit('message', data);
