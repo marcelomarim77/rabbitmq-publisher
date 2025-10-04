@@ -20,7 +20,7 @@ export class AppService implements OnModuleInit {
       }
 
     async publishCreateCat(data: any) {
-        const result = this.client.emit('create_cat', data);
+        const result = this.client.emit('message', data);
         if (result) {
             return { status: `Mensagem [${JSON.stringify(data)}] enviada para a fila [${this.queueName}]` };
         }
